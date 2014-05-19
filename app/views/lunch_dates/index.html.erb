@@ -1,0 +1,32 @@
+<h1>Lunch Dates List</h1>
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
+<% @lunch_dates.each do |ld| %>
+  <%= ld.creator_id %><br />
+  <%= ld.attendee_id %><br />
+  <%= ld.location_name %><br />
+  <%= ld.latitude %><br />
+  <%= ld.longitude %><br />
+  <%= ld.date_time %><br />
+<% end %>
+
+<!-- DONT TOUCH MAP IS WORKING -->
+<script type="text/javascript" charset="utf-8">
+handler = Gmaps.build('Google');
+handler.buildMap({
+  provider: {
+    disableDefaultUI: true
+  },
+  internal: {
+    id: 'map'
+  }},
+  function(){
+  markers = handler.addMarkers(<%=raw @hash.to_json %>);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
+</script>
+<!-- DONT TOUCH MAP IS WORKING -->

@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20140519135534) do
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
+    t.string   "image_url"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Rating</th>
+    <th>Lat</th>
+    <th>Long</th>
+  </tr>
+<% @locations.each do |spot| %>
+  <tr>
+    <td><%= link_to spot.name, new_lunch_date_path(location_name: spot.name, latitude: spot.lat, longitude: spot.lng) %></td>
+    <td><%= spot.formatted_address %></td>
+    <td><%= spot.rating %>
+    <td><%= spot.lat %></td>
+    <td><%= spot.lng %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,14 @@
+<h1>New Lunch Date Submission</h1>
+
+<%= form_for @lunch_date do |f| %>
+  <%= f.label :location_name %>
+  <%= params[:location_name] %>
+  <% f.text_field :location_name, value: params[:location_name] %><br />
+  <% f.label :latitude %>
+  <% f.text_field :latitude, value: params[:latitude] %><br />
+  <% f.label :longitude %>
+  <% f.text_field :longitude, value: params[:longitude] %><br />
+  <%= f.label :date_time, 'LunchDate Date/Time' %>
+  <%= f.datetime_select :date_time, order: [:month, :day], discard_year: true, minute_step: 5, ampm: true, default: Time.now %><br />
+  <%= f.submit %>
+<% end %>

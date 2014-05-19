@@ -1,0 +1,9 @@
+<%= form_tag(query_result_path, :method=>'post', :multipart => true) do %>
+ <p>
+   Location Query:<br />
+   <%= text_field_tag :query_term %>
+ </p>
+ <p>
+   <%= submit_tag 'Find Places' %>
+ </p>
+<% end %>
