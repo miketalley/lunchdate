@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+gem 'twilio-ruby'
+gem 'google_places'
+gem 'geocoder'
+gem 'gmaps4rails'
+gem 'pry-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
