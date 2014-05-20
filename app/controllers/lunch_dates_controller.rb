@@ -1,11 +1,14 @@
 class LunchDatesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :index]
+  before_action :authenticate_user!, except: [:index, :show]
+  #before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
+
 
   def index
     @lunch_dates = LunchDate.all
     @hash = Gmaps4rails.build_markers(@lunch_dates) do |lunch_date, marker|
       marker.lat lunch_date.latitude
       marker.lng lunch_date.longitude
+      marker.infowindow lunch_date.location_name
     end
   end
 
@@ -19,6 +22,23 @@ class LunchDatesController < ApplicationController
 
   def create
     @lunch_date = LunchDate.create(lunch_date_params)
+    redirect_to lunch_date_path(@lunch_date)
+  end
+
+  def edit
+    @lunch_date = LunchDate.find(params[:id])
+  end
+
+  def update
+    lunch_date = LunchDate.find(params[:id])
+    lunch_date.update(lunch_date_params)
+    redirect_to lunch_date_path(lunch_date)
+  end
+
+  def destroy
+    lunch_date = LunchDate.find(params[:id])
+    lunch_date.destroy
+    redirect_to root_path, message: 'Date Deleted'
   end
 
   def new_query
@@ -38,14 +58,19 @@ class LunchDatesController < ApplicationController
       :location_name,
       :latitude,
       :longitude,
-      :date_time
+      :date_time,
+      :created_at,
+      :updated_at
     )
-    #   'date_time(1i)', # Year
-    #   'date_time(2i)', # Month
-    #   'date_time(3i)', # Day
-    #   'date_time(4i)', # Hour in Military
-    #   'date_time(5i)'  # Minute
-    # )
+  end
+
+  private
+  def set_lunch_date
+    if user_signed_in?
+      @lunch_date = current_user.lunch_dates.find(lunch_date_params)
+    else
+      @lunch_date = LunchDate.find(lunch_date_params)
+    end
   end
 
 end

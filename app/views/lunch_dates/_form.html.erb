@@ -1,0 +1,15 @@
+<%= form_for @lunch_date do |f| %>
+  <% f.label :creator_id %>
+  <%= f.hidden_field :creator_id, value: current_user.id %>
+  <%= f.label :location_name %>
+  <%= @lunch_date.location_name %>
+  <%= f.hidden_field :location_name, value: params[:location_name] %><br />
+  <% f.label :latitude %>
+  <%= f.hidden_field :latitude, value: params[:latitude] %><br />
+  <% f.label :longitude %>
+  <%= f.hidden_field :longitude, value: params[:longitude] %><br />
+  <%= f.label :date_time, 'LunchDate Date/Time' %>
+  <%= f.datetime_select :date_time, order: [:month, :day], discard_year: true, minute_step: 5, ampm: true, default: Time.now %><br />
+  <%= f.submit %>
+<% end %>
+

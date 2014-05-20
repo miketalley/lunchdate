@@ -2,7 +2,7 @@
 The best way to make real connections with real people.<br />
 
 <h2>
-<%= link_to 'View Open Dates', lunch_dates_path %><br />
+<%= link_to 'View Open Dates', lunch_dates_path, 'data-no-turbolink' => true %><br />
 <% if user_signed_in? %>
   <%= link_to 'Submit New Date', new_query_path %><br />
 <% end %>
