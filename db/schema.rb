@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20140520142618) do
   add_index "interests", ["name"], name: "index_interests_on_name", unique: true, using: :btree
 
   create_table "lunch_dates", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "creator_id"
     t.text     "location_name"
     t.float    "latitude"
     t.float    "longitude"

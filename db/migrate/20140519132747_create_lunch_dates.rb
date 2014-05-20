@@ -1,7 +1,7 @@
 class CreateLunchDates < ActiveRecord::Migration
   def change
     create_table :lunch_dates do |t|
-      t.references :user
+      t.references :creator
       t.text :location_name
       t.float :latitude
       t.float :longitude

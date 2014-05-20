@@ -2,7 +2,8 @@
 
 <h3>
 <p>
-Creator: <%= @lunch_date.creator_id %><br />
+Current_User: <%= current_user.inspect %><br />
+Creator: <%= @lunch_date.creator.inspect %><br />
 Location: <%= @lunch_date.location_name %><br />
 Date/Time: <%= @lunch_date.date_time %><br />
 </p>

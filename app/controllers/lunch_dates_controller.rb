@@ -16,12 +16,22 @@ class LunchDatesController < ApplicationController
   end
 
   def new
-    @lunch_date = LunchDate.new
+    @lunch_date = LunchDate.new(
+      location_name: params[:location_name],
+      latitude: params[:latitude],
+      longitude: params[:longitude]
+    )
   end
 
   def create
-    @lunch_date = LunchDate.create(lunch_date_params)
-    redirect_to lunch_date_path(@lunch_date)
+    @lunch_date = LunchDate.new(lunch_date_params)
+    @lunch_date.creator = current_user
+    if @lunch_date.save
+      redirect_to lunch_date_path(@lunch_date)
+    else
+      flash[:message]
+      render :new
+    end
   end
 
   def edit
@@ -49,7 +59,6 @@ class LunchDatesController < ApplicationController
 
   def lunch_date_params
     params.require(:lunch_date).permit(
-      :creator_id,
       :location_name,
       :latitude,
       :longitude,
@@ -61,11 +70,11 @@ class LunchDatesController < ApplicationController
 
   private
   def set_lunch_date
-    if user_signed_in?
-      @lunch_date = current_user.lunch_dates.find(params[:id])
-    else
+    # if user_signed_in?
+    #   @lunch_date = current_user.lunch_dates.find(params[:id])
+    # else
       @lunch_date = LunchDate.find(params[:id])
-    end
+    # end
   end
 
 end
