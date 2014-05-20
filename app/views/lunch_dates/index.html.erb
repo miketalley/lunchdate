@@ -10,17 +10,16 @@
 </p>
 <% @lunch_dates.each do |ld| %>
   <p>
-  <%= image_tag(ld.creator.image_url, size: "80x80") %><br />
-  Creator: <%= ld.creator.username %><br />
-  Location: <%= ld.location_name %><br />
-  Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
-  Matches Status: <ul><% ld.matches.each do |match| %>
-                <li><%= match.status %></li>
-              <% end %>
-          </ul>
-  <% if ld.creator == current_user %>
-    <%= link_to 'Edit/Delete Date Proposal', edit_lunch_date_path(ld) %>
-  <% else %>
+  <% if ld.creator != current_user %>
+    <%= image_tag(ld.creator.image_url, size: "80x80") %><br />
+    Creator: <%= ld.creator.username %><br />
+    Location: <%= ld.location_name %><br />
+    Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
+    Matches Status: <ul>
+      <% ld.matches.each do |match| %>
+        <li><%= match.status %></li>
+      <% end %>
+    </ul>
     <%= link_to 'View/Accept Date Proposal', lunch_date_path(ld) %>
   <% end %>
   </p>

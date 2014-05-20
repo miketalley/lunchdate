@@ -79,6 +79,10 @@ class LunchDatesController < ApplicationController
     end
   end
 
+  def my_dates
+    @lunch_dates = LunchDate.all
+  end
+
   def lunch_date_params
     params.require(:lunch_date).permit(
       :location_name,

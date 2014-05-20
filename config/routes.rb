@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   post 'lunch_dates/new' => 'lunch_dates#create'
   post 'lunch_dates/:id' => 'lunch_dates#accept_date', as: 'accept_date'
+  get 'lunch_dates/my_dates' => 'lunch_dates#my_dates', as: 'my_dates'
 
   resources :lunch_dates
 

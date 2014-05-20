@@ -15,7 +15,7 @@ Date/Time: <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
 </p>
 </h3>
 
-<% if @lunch_date.creator != current_user %>
+<% if (@lunch_date.creator != current_user) && (!@lunch_date.matches.map{ |match| match.user_id }.include? current_user.id) %>
   <h2><%= link_to 'Accept This Lunch Date', @lunch_date, method: :accept_date, data: { confirm: 'Accept Date?'} %></h2>
 <% end %>
 

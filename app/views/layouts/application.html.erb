@@ -11,8 +11,9 @@
 <body>
 
 <%= link_to 'Home', root_path %> |
-<%= link_to 'View Dates', lunch_dates_path, 'data-no-turbolink' => true %> |
-<%= link_to 'Create Date', new_query_path %><br />
+<%= link_to 'All Dates', lunch_dates_path, 'data-no-turbolink' => true %> |
+<%= link_to 'Create Date', new_query_path %> |
+<%= link_to 'View My Dates', my_dates_path %><br />
 
 <!-- Devise Login Code -->
 <% if user_signed_in? %>
