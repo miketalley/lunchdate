@@ -8,17 +8,20 @@
   <div id="map" style='width: 800px; height: 400px;'></div>
 </div>
 </p>
-
 <% @lunch_dates.each do |ld| %>
   <p>
-  Creator: <%= ld.creator.inspect %><br />
+  Creator: <%= ld.creator.username %><br />
   Location: <%= ld.location_name %><br />
-  Latitude: <%= ld.latitude %><br />
-  Longitude: <%= ld.longitude %><br />
-  Date/Time: <%= ld.date_time %><br />
+  Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
+  Matches Status: <ul><% ld.matches.each do |match| %>
+                <li><%= match.status %></li>
+              <% end %>
+          </ul>
   <% if ld.creator == current_user %>
-    <%= link_to 'Edit/Delete Date', edit_lunch_date_path(ld) %>
-    <% end %>
+    <%= link_to 'Edit/Delete Date Proposal', edit_lunch_date_path(ld) %>
+  <% else %>
+    <%= link_to 'View/Accept Date Proposal', lunch_date_path(ld) %>
+  <% end %>
   </p>
 <% end %>
 

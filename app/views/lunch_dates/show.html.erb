@@ -1,12 +1,21 @@
-<h1>View Lunch Date</h1>
+<h1>View/Accept Lunch Date</h1>
 
 <h3>
 <p>
-Current_User: <%= current_user.inspect %><br />
-Creator: <%= @lunch_date.creator.inspect %><br />
+Creator: <%= @lunch_date.creator.username %><br />
 Location: <%= @lunch_date.location_name %><br />
-Date/Time: <%= @lunch_date.date_time %><br />
+Date/Time: <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
 </p>
 </h3>
-<%= link_to 'Edit Date', edit_lunch_date_path(@lunch_date) %> |
-<%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'} %>
+
+<% if @lunch_date.creator != current_user %>
+  <h2><%= link_to 'Accept This Lunch Date', @lunch_date, method: :accept_date, data: { confirm: 'Accept Date?'} %></h2>
+<% end %>
+
+
+<%= link_to 'View All Dates', lunch_dates_path, 'data-no-turbolink' => true %>
+<% if @lunch_date.creator == current_user %>
+  |
+  <%= link_to 'Edit Date', edit_lunch_date_path(@lunch_date) %> |
+  <%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'} %>
+<% end %>

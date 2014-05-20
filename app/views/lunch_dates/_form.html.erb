@@ -1,10 +1,10 @@
 <%= form_for @lunch_date do |f| %>
-  <%= f.label :location_name %>
-  <%= @lunch_date.location_name %>
+  <%= f.label :location_name %>:
+  <%= @lunch_date.location_name %><br />
   <%= f.hidden_field :location_name %>
   <%= f.hidden_field :latitude %>
   <%= f.hidden_field :longitude %>
-  <%= f.label :date_time, 'LunchDate Date/Time' %>
+  <%= f.label :date_time, 'Date/Time: ' %>
   <%= f.datetime_select :date_time, order: [:month, :day], discard_year: true, minute_step: 5, ampm: true, default: Time.now %><br />
   <%= f.submit %>
 <% end %>

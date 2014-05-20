@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'twilio/voice' => 'twilio#voice'
 
   post 'lunch_dates/new' => 'lunch_dates#create'
+  post 'lunch_dates/:id' => 'lunch_dates#accept_date', as: 'accept_date'
 
   resources :lunch_dates
 

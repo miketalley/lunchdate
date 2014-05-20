@@ -29,7 +29,7 @@ class LunchDatesController < ApplicationController
     if @lunch_date.save
       redirect_to lunch_date_path(@lunch_date)
     else
-      flash[:message]
+      flash[:message] = 'Date Not Saved'
       render :new
     end
   end
@@ -55,6 +55,21 @@ class LunchDatesController < ApplicationController
     client = GooglePlaces::Client.new('AIzaSyBW5YthsYHaqiVpokxHvAbXF2UfEU10dHw')
     coordinates = Geocoder.coordinates(params[:query_term])
     @locations = client.spots(coordinates[0], coordinates[1], types: ['restaurant', 'food'], radius: 1000)
+  end
+
+  def accept_date
+    lunch_date = LunchDate.find(params[:id])
+    @match = Match.new
+    @match.user = current_user
+    @match.lunch_date = lunch_date
+    @match.status = 'Pending Confirmation'
+    if @match.save
+      flash[:message] = "Email Sent to Creator\nLunch Date is Pending Confirmation"
+      redirect_to lunch_date_path(lunch_date)
+    else
+      flash[:message] = 'Something went wrong'
+      redirect_to lunch_date_path(lunch_date)
+    end
   end
 
   def lunch_date_params
