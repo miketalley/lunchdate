@@ -1,4 +1,5 @@
 class LunchDate < ActiveRecord::Base
-  has_many :users_lunchdates
-  has_many :users, through: :users_lunchdates
+  belongs_to :creator, class_name: 'User'
+  has_many :matches
+  has_many :users, through: :matches
 end

@@ -11,14 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519135534) do
+ActiveRecord::Schema.define(version: 20140520142618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "interests", force: true do |t|
+    t.text     "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "interests", ["name"], name: "index_interests_on_name", unique: true, using: :btree
+
   create_table "lunch_dates", force: true do |t|
-    t.integer  "creator_id"
-    t.integer  "attendee_id"
+    t.integer  "user_id"
     t.text     "location_name"
     t.float    "latitude"
     t.float    "longitude"
@@ -27,8 +35,13 @@ ActiveRecord::Schema.define(version: 20140519135534) do
     t.datetime "updated_at"
   end
 
-  add_index "lunch_dates", ["attendee_id"], name: "index_lunch_dates_on_attendee_id", using: :btree
-  add_index "lunch_dates", ["creator_id"], name: "index_lunch_dates_on_creator_id", using: :btree
+  create_table "matches", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "lunch_date_id"
+    t.text     "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -45,10 +58,13 @@ ActiveRecord::Schema.define(version: 20140519135534) do
     t.datetime "updated_at"
     t.text     "username",                            null: false
     t.datetime "dob",                                 null: false
+    t.string   "gender",                              null: false
+    t.string   "sexual_orientation",                  null: false
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
     t.string   "image_url"
+    t.string   "quote"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

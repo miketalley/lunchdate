@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-   has_many :users_lunchdates
-   has_many :lunch_dates, through: :users_lunchdates
+   has_many :matches
+   has_many :lunch_dates
+   has_many :lunch_dates, through: :matches
+   has_many :interests
 end

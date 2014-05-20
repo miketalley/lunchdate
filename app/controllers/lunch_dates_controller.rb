@@ -1,6 +1,6 @@
 class LunchDatesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  #before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
+  before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
 
 
   def index
@@ -13,7 +13,6 @@ class LunchDatesController < ApplicationController
   end
 
   def show
-    @lunch_date = LunchDate.find(params[:id])
   end
 
   def new
@@ -26,18 +25,15 @@ class LunchDatesController < ApplicationController
   end
 
   def edit
-    @lunch_date = LunchDate.find(params[:id])
   end
 
   def update
-    lunch_date = LunchDate.find(params[:id])
-    lunch_date.update(lunch_date_params)
-    redirect_to lunch_date_path(lunch_date)
+    @lunch_date.update(lunch_date_params)
+    redirect_to lunch_date_path(@lunch_date)
   end
 
   def destroy
-    lunch_date = LunchDate.find(params[:id])
-    lunch_date.destroy
+    @lunch_date.destroy
     redirect_to root_path, message: 'Date Deleted'
   end
 
@@ -54,7 +50,6 @@ class LunchDatesController < ApplicationController
   def lunch_date_params
     params.require(:lunch_date).permit(
       :creator_id,
-      :attendee_id,
       :location_name,
       :latitude,
       :longitude,
@@ -67,9 +62,9 @@ class LunchDatesController < ApplicationController
   private
   def set_lunch_date
     if user_signed_in?
-      @lunch_date = current_user.lunch_dates.find(lunch_date_params)
+      @lunch_date = current_user.lunch_dates.find(params[:id])
     else
-      @lunch_date = LunchDate.find(lunch_date_params)
+      @lunch_date = LunchDate.find(params[:id])
     end
   end
 

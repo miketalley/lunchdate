@@ -11,13 +11,13 @@
 
 <% @lunch_dates.each do |ld| %>
   <p>
-  Creator: <%= ld.creator_id %><br />
-  Attendee: <%= ld.attendee_id %><br />
+  IMG: <%= ld.creator.image_url %>
+  Creator: <%= ld.creator.username %><br />
   Location: <%= ld.location_name %><br />
   Latitude: <%= ld.latitude %><br />
   Longitude: <%= ld.longitude %><br />
   Date/Time: <%= ld.date_time %><br />
-  <% if ld.creator_id == current_user %>
+  <% if ld.creator_id == current_user.id %>
     <%= link_to 'Edit/Delete Date', edit_lunch_date_path(ld) %>
     <% end %>
   </p>
