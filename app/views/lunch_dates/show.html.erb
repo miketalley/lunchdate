@@ -1,7 +1,14 @@
 <h1>View/Accept Lunch Date</h1>
 
+<p>
+<div style='width: 800px;'>
+  <div id="map" style='width: 400px; height: 200px;'></div>
+</div>
+</p>
+
 <h3>
 <p>
+<%= image_tag(@lunch_date.creator.image_url, size: "200x200") %><br />
 Creator: <%= @lunch_date.creator.username %><br />
 Location: <%= @lunch_date.location_name %><br />
 Date/Time: <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
@@ -19,3 +26,22 @@ Date/Time: <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
   <%= link_to 'Edit Date', edit_lunch_date_path(@lunch_date) %> |
   <%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'} %>
 <% end %>
+
+<!-- DONT TOUCH MAP IS WORKING -->
+<script type="text/javascript" charset="utf-8">
+handler = Gmaps.build('Google');
+handler.buildMap({
+  provider: {
+    disableDefaultUI: true
+  },
+  internal: {
+    id: 'map'
+  }},
+  function(){
+  markers = handler.addMarkers(<%= raw @single_date_hash.to_json %>);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(15)
+});
+</script>
+<!-- DONT TOUCH MAP IS WORKING -->

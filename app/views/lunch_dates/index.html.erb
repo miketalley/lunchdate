@@ -10,6 +10,7 @@
 </p>
 <% @lunch_dates.each do |ld| %>
   <p>
+  <%= image_tag(ld.creator.image_url, size: "80x80") %><br />
   Creator: <%= ld.creator.username %><br />
   Location: <%= ld.location_name %><br />
   Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />

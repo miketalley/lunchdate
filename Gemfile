@@ -7,6 +7,8 @@ gem 'gmaps4rails'
 gem 'pry-rails'
 gem 'devise'
 gem 'rails_12factor'
+gem 'pony'     # This makes sending email easier
+gem 'sendgrid' # This lets you send email from Sendgrid
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

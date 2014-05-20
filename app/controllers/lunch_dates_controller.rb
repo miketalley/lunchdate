@@ -13,6 +13,11 @@ class LunchDatesController < ApplicationController
   end
 
   def show
+    @single_date_hash  = Gmaps4rails.build_markers(@lunch_date) do |lunch_date, marker|
+      marker.lat @lunch_date.latitude
+      marker.lng @lunch_date.longitude
+      marker.infowindow @lunch_date.location_name
+    end
   end
 
   def new
@@ -52,7 +57,7 @@ class LunchDatesController < ApplicationController
 
   def query_result
     coordinates = []
-    client = GooglePlaces::Client.new('AIzaSyBW5YthsYHaqiVpokxHvAbXF2UfEU10dHw')
+    client = GooglePlaces::Client.new('AIzaSyAwEEpQtRk32Ig2-NMbS2VfS4zdu5h7EZ4')
     coordinates = Geocoder.coordinates(params[:query_term])
     @locations = client.spots(coordinates[0], coordinates[1], types: ['restaurant', 'food'], radius: 1000)
   end
@@ -84,12 +89,9 @@ class LunchDatesController < ApplicationController
   end
 
   private
+
   def set_lunch_date
-    # if user_signed_in?
-    #   @lunch_date = current_user.lunch_dates.find(params[:id])
-    # else
-      @lunch_date = LunchDate.find(params[:id])
-    # end
+    @lunch_date = LunchDate.find(params[:id])
   end
 
 end
