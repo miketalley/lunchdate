@@ -2,7 +2,11 @@
   <% f.label :creator_id %>
   <%= f.hidden_field :creator_id, value: current_user.id %>
   <%= f.label :location_name %>
-  <%= @lunch_date.location_name %>
+  <% if params[:location_name].present? %>
+    <%= params[:location_name] %>
+  <% else %>
+    <%= @lunch_date.location_name %>
+  <% end %>
   <%= f.hidden_field :location_name, value: params[:location_name] %><br />
   <% f.label :latitude %>
   <%= f.hidden_field :latitude, value: params[:latitude] %><br />
