@@ -69,7 +69,7 @@ class LunchDatesController < ApplicationController
     @match.lunch_date = lunch_date
     @match.status = 'Pending Confirmation'
     # This should have Pony send a confirmation email to the creator
-    # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
+    send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
     if @match.save
       flash[:message] = "Email Sent to Creator\nLunch Date is Pending Confirmation"
       redirect_to lunch_date_path(lunch_date)
