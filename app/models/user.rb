@@ -11,4 +11,10 @@ class User < ActiveRecord::Base
    has_many :lunch_dates
    has_many :lunch_dates, through: :matches
    has_many :interests
+
+   def age(dob)
+    now = Time.now.utc.to_date
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+  end
+
 end

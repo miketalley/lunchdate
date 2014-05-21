@@ -9,7 +9,7 @@
   <p>
   <%= match.lunch_date.creator.username %><br />
   <%= image_tag(match.lunch_date.creator.image_url) %><br />
-  <%= match.lunch_date.creator.dob %><br />
+  <%= age(match.lunch_date.creator.dob) %><br />
   <%= match.lunch_date.creator.gender %><br />
   <p>
 <% end %>

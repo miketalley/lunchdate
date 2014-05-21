@@ -21,10 +21,10 @@ class LunchDatesController < ApplicationController
       marker.lat lunch_date.latitude
       marker.lng lunch_date.longitude
       marker.infowindow "<span class='iwstyle'>" + "#{lunch_date.location_name}" + "<br />" + "#{lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p")}" + "<br />" + "#{lunch_date.creator.username}" + "</span>"
-      # infoWindow_details
+      #infoWindow_details
     end
-    # Broken but keep for later -- in model
-    # gmaps_marker_hash(@unconfirmed_other_users_lunch_dates)
+
+    #gmaps_marker_hash(@unconfirmed_other_users_lunch_dates)
   end
 
   def show
@@ -34,8 +34,8 @@ class LunchDatesController < ApplicationController
       marker.infowindow "<span class='iwstyle'>" + "#{lunch_date.location_name}" + "<br />" + "#{lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p")}" + "<br />" + "#{lunch_date.creator.username}" + "</span>"
       #infoWindow_details
     end
-    # Broken but keep for later -- in model
-    # gmaps_marker_hash(@lunch_date)
+
+    #gmaps_marker_hash(@lunch_date)
   end
 
   def new
@@ -77,7 +77,6 @@ class LunchDatesController < ApplicationController
     coordinates = []
     client = CURRENT_USER
     coordinates = Geocoder.coordinates(params[:query_term])
-    binding.pry
     @locations = client.spots(coordinates[0], coordinates[1], types: ['restaurant', 'food'], radius: 1000)
   end
 
@@ -155,6 +154,18 @@ class LunchDatesController < ApplicationController
 
   def set_lunch_date
     @lunch_date = LunchDate.find(params[:id])
+  end
+
+  def infoWindow_details
+    "<span class='iwstyle'>" + "#{lunch_date.location_name}" + "<br />" + "#{lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p")}" + "<br />" + "#{lunch_date.creator.username}" + "</span>"
+  end
+
+  def gmaps_marker_hash(lunch_dates_to_mark)
+    Gmaps4rails.build_markers(lunch_dates_to_mark) do |lunch_date, marker|
+      marker.lat lunch_date.latitude
+      marker.lng lunch_date.longitude
+      marker.infowindow infoWindow_details
+    end
   end
 
 end
