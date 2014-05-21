@@ -1,12 +1,12 @@
 class LunchDatesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index]
   before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
   CURRENT_USER = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
 
 
   def index
     @unconfirmed_other_users_lunch_dates = []
-    @lunch_dates = LunchDate.all
+    @lunch_dates = LunchDate.all.sort_by{ |date| date.date_time}
     @lunch_dates.each do |ld|
       if (
         (ld.creator != current_user) &&
@@ -16,7 +16,7 @@ class LunchDatesController < ApplicationController
         @unconfirmed_other_users_lunch_dates << ld
       end
     end
-    @unconfirmed_other_users_lunch_dates.sort_by{:date_time}
+    @unconfirmed_other_users_lunch_dates.sort_by{ |date| date.date_time}
     @hash = Gmaps4rails.build_markers(@unconfirmed_other_users_lunch_dates) do |lunch_date, marker|
       marker.lat lunch_date.latitude
       marker.lng lunch_date.longitude
@@ -67,7 +67,8 @@ class LunchDatesController < ApplicationController
 
   def destroy
     @lunch_date.destroy
-    redirect_to root_path, message: 'Date Deleted'
+    flash[:message] = 'Date Deleted'
+    redirect_to my_dates_path
   end
 
   def new_query
@@ -77,7 +78,12 @@ class LunchDatesController < ApplicationController
     coordinates = []
     client = CURRENT_USER
     coordinates = Geocoder.coordinates(params[:query_term])
-    @locations = client.spots(coordinates[0], coordinates[1], types: ['restaurant', 'food'], radius: 1000)
+    if coordinates.nil?
+      flash[:message] = 'No Results Found'
+      render :new_query
+    else
+      @locations = client.spots(coordinates[0], coordinates[1], types: ['restaurant', 'food'], radius: 1000)
+    end
   end
 
   def accept_date
@@ -100,7 +106,7 @@ class LunchDatesController < ApplicationController
   def my_dates
     all_dates = LunchDate.all
     @lunch_dates = []
-    @lunch_dates = all_dates.select {|date| date.creator == current_user}
+    @lunch_dates = all_dates.select {|date| date.creator == current_user}.sort_by{ |date| date.date_time}
   end
 
   def my_matches
@@ -110,7 +116,7 @@ class LunchDatesController < ApplicationController
     @confirmed_matches = []
     @unconfirmed_matches = []
     @matches.each do |match|
-      if match.lunch_date.present?
+      if match.status == 'Confirmed'
         @confirmed_matches << match
       else
         @unconfirmed_matches << match

@@ -2,11 +2,11 @@
 
 
 Hometown: <%= @profile.city %>, <%= @profile.state %><br />
-<%= @profile.quote %><br />
+Quote: <%= @profile.quote %><br />
 
 
 <%= image_tag(@profile.image_url, size: '200x200') %><br />
-Age: <%= @profile.dob %><br />
+Age: <%= @profile.age(@profile.dob) %><br />
 Gender: <%= @profile.gender %><br />
 Sexual Orientation: <%= @profile.sexual_orientation %><br />
 
