@@ -3,14 +3,15 @@
 <h2>Confirmed</h2>
 <% @confirmed_matches.each do |match| %>
   <p>
-  <%= match.lunch_date.location %>
+  <%= match.lunch_date.location_name %><br />
   <%= match.lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %>
   </p>
   <p>
-  <%= match.lunch_date.creator.username %>
-  <%= image_tag(match.lunch_date.creator.image_url) %>
-  <%= match.lunch_date.creator.age(match.lunch_date.creator.dob) %>
-  <%= match.lunch_date.creator.gender %>
+  <%= match.lunch_date.creator.username %><br />
+  <%= image_tag(match.lunch_date.creator.image_url) %><br />
+  <%= match.lunch_date.creator.dob %><br />
+  <%= match.lunch_date.creator.gender %><br />
+  <p>
 <% end %>
 
 <h2>Unconfirmed</h2>
