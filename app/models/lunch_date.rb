@@ -11,4 +11,16 @@ class LunchDate < ActiveRecord::Base
     self.date_time < Date.today
   end
 
+  def infoWindow_details
+    "<span class='iwstyle'>" + "#{lunch_date.location_name}" + "<br />" + "#{lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p")}" + "<br />" + "#{lunch_date.creator.username}" + "</span>"
+  end
+
+  def gmaps_marker_hash(lunch_dates_to_mark)
+    Gmaps4rails.build_markers(lunch_dates_to_mark) do |lunch_date, marker|
+      marker.lat lunch_date.latitude
+      marker.lng lunch_date.longitude
+      marker.infowindow infoWindow_details
+    end
+  end
+
 end

@@ -16,19 +16,16 @@ class LunchDatesController < ApplicationController
       end
     end
     @unconfirmed_other_users_lunch_dates.sort_by{:date_time}
-    @hash = Gmaps4rails.build_markers(@unconfirmed_other_users_lunch_dates) do |lunch_date, marker|
-      marker.lat lunch_date.latitude
-      marker.lng lunch_date.longitude
-      marker.infowindow lunch_date.location_name
-    end
+    @hash = gmaps_marker_hash(@unconfirmed_other_users_lunch_dates)
   end
 
   def show
-    @single_date_hash  = Gmaps4rails.build_markers(@lunch_date) do |lunch_date, marker|
-      marker.lat @lunch_date.latitude
-      marker.lng @lunch_date.longitude
-      marker.infowindow @lunch_date.location_name
-    end
+    @single_date_hash = gmaps_marker_hash(@lunch_date)
+      # Gmaps4rails.build_markers(@lunch_date) do |lunch_date, marker|
+      # marker.lat @lunch_date.latitude
+      # marker.lng @lunch_date.longitude
+      # marker.infowindow @lunch_date.location_name
+      # end
   end
 
   def new
