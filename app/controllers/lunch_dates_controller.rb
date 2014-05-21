@@ -1,6 +1,7 @@
 class LunchDatesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
+  CURRENT_USER = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
 
 
   def index
@@ -65,7 +66,7 @@ class LunchDatesController < ApplicationController
 
   def query_result
     coordinates = []
-    client = GooglePlaces::Client.new('AIzaSyAwEEpQtRk32Ig2-NMbS2VfS4zdu5h7EZ4')
+    client = CURRENT_USER
     coordinates = Geocoder.coordinates(params[:query_term])
     @locations = client.spots(coordinates[0], coordinates[1], types: ['restaurant', 'food'], radius: 1000)
   end

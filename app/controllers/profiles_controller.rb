@@ -1,7 +1,8 @@
-class ProfilesController < Devise::RegistrationsController
+class ProfilesController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+    @user = params[:id]
+    @profile = User.where(username: @user).first
   end
 
 end

@@ -1,25 +1,13 @@
-Profile here
+<h1><%= @profile.username %></h1>
 
-<table>
-        <tr>
-          <th>Image</th>
-          <th>Username</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Sexual Orientation</th>
-          <th>Quote</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Confirm</th>
-        </tr>
-        <tr>
-          <td><%= image_tag(@user.image_url, size: '100x100') %></td>
-          <td><%= @user.username %></td>
-          <td><%= Match::age(@user.dob) %></td>
-          <td><%= @user.gender %></td>
-          <td><%= @user.sexual_orientation %></td>
-          <td><%= @user.quote %></td>
-          <td><%= @user.city %></td>
-          <td><%= @user.state %></td>
-        </tr>
-      </table>
+<%= @profile.inspect %>
+
+Hometown: <%= @profile.city %>, <%= @profile.state %><br />
+<%= @profile.quote %><br />
+
+
+<%= image_tag(@profile.image_url, size: '200x200') %><br />
+Age: <%= age(@profile.dob) %><br />
+Gender: <%= @profile.gender %><br />
+Sexual Orientation: <%= @profile.sexual_orientation %><br />
+
