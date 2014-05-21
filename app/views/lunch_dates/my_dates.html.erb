@@ -1,56 +1,54 @@
-<h1>My Lunch Dates</h1>
+<h1>My Posted Lunch Dates</h1>
 
 <% @lunch_dates.each do |ld| %>
   <p>
-  <% if ld.creator == current_user %>
-    Location: <%= ld.location_name %><br />
-    Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
-    Status:
-    <% if ld.matches.any? && (ld.matches.map{ |match| match.status }.include? 'Confirmed') %>
-      Confirmed - <%= ld.matches.where(status: 'Confirmed').first.user.username %><br />
-    <% elsif ld.matches.any? %>
-      Pending Confirmation<br />
-    <% else %>
-      No Matches Yet<br />
-    <% end %>
-    <%= link_to 'View', edit_lunch_date_path(ld) %> |
-    <%= link_to 'Edit', edit_lunch_date_path(ld) %> |
-    <%= link_to 'Delete', ld, method: :delete, data: { confirm: 'Delete Date?'} %>
-    </p>
-    <p>
-    <% if ld.matches.any? %>
-    Matches:
-      <table>
-        <tr>
-          <th>Status</th>
-          <th>Image</th>
-          <th>Username</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Sexual Orientation</th>
-          <th>Quote</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Confirm</th>
-        </tr>
-        <% ld.matches.each do |match| %>
-        <tr>
-          <td><%= match.status %></td>
-          <td><%= image_tag(match.user.image_url, size: '100x100') %></td>
-          <td><%= match.user.username %></td>
-          <td><%= match.age(match.user.dob) %></td>
-          <td><%= match.user.gender %></td>
-          <td><%= match.user.sexual_orientation %></td>
-          <td><%= match.user.quote %></td>
-          <td><%= match.user.city %></td>
-          <td><%= match.user.state %></td>
-          <td><%= link_to 'Confirm Lunch Date', confirm_date_path(ld, match_id_to_confirm: match.id), data: { confirm: "Confirm Lunch Date with #{match.user.username}"} %></td>
-        </tr>
-        <% end %>
-      </table>
-    <% else %>
-      None
-    <% end %>
+  Location: <%= ld.location_name %><br />
+  Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
+  Status:
+  <% if ld.matches.any? && (ld.matches.map{ |match| match.status }.include? 'Confirmed') %>
+    Confirmed - <%= ld.matches.where(status: 'Confirmed').first.user.username %><br />
+  <% elsif ld.matches.any? %>
+    Pending Confirmation<br />
+  <% else %>
+    No Matches Yet<br />
+  <% end %>
+  <%= link_to 'View', lunch_date_path(ld) %> |
+  <%= link_to 'Edit', edit_lunch_date_path(ld) %> |
+  <%= link_to 'Delete', ld, method: :delete, data: { confirm: 'Delete Date?'} %>
+  </p>
+  <p>
+  <% if ld.matches.any? %>
+  Matches:
+    <table>
+      <tr>
+        <th>Status</th>
+        <th>Image</th>
+        <th>Username</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Sexual Orientation</th>
+        <th>Quote</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Confirm</th>
+      </tr>
+      <% ld.matches.each do |match| %>
+      <tr>
+        <td><%= match.status %></td>
+        <td><%= image_tag(match.user.image_url, size: '100x100') %></td>
+        <td><%= link_to match.user.username, profile_path(match.user.username) %></td>
+        <td><%= match.age(match.user.dob) %></td>
+        <td><%= match.user.gender %></td>
+        <td><%= match.user.sexual_orientation %></td>
+        <td><%= match.user.quote %></td>
+        <td><%= match.user.city %></td>
+        <td><%= match.user.state %></td>
+        <td><%= link_to 'Confirm Lunch Date', confirm_date_path(ld, match_id_to_confirm: match.id), data: { confirm: "Confirm Lunch Date with #{match.user.username}"} %></td>
+      </tr>
+      <% end %>
+    </table>
+  <% else %>
+    None
   <% end %>
   </p>
 <% end %>

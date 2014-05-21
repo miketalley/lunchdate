@@ -1,13 +1,12 @@
 <h1><%= @profile.username %></h1>
 
-<%= @profile.inspect %>
 
 Hometown: <%= @profile.city %>, <%= @profile.state %><br />
 <%= @profile.quote %><br />
 
 
 <%= image_tag(@profile.image_url, size: '200x200') %><br />
-Age: <%= age(@profile.dob) %><br />
+Age: <%= @profile.dob %><br />
 Gender: <%= @profile.gender %><br />
 Sexual Orientation: <%= @profile.sexual_orientation %><br />
 

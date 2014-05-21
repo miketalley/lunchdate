@@ -17,16 +17,25 @@ class LunchDatesController < ApplicationController
       end
     end
     @unconfirmed_other_users_lunch_dates.sort_by{:date_time}
-    @hash = gmaps_marker_hash(@unconfirmed_other_users_lunch_dates)
+    @hash = Gmaps4rails.build_markers(@unconfirmed_other_users_lunch_dates) do |lunch_date, marker|
+      marker.lat lunch_date.latitude
+      marker.lng lunch_date.longitude
+      marker.infowindow "<span class='iwstyle'>" + "#{lunch_date.location_name}" + "<br />" + "#{lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p")}" + "<br />" + "#{lunch_date.creator.username}" + "</span>"
+      # infoWindow_details
+    end
+    # Broken but keep for later -- in model
+    # gmaps_marker_hash(@unconfirmed_other_users_lunch_dates)
   end
 
   def show
-    @single_date_hash = gmaps_marker_hash(@lunch_date)
-      # Gmaps4rails.build_markers(@lunch_date) do |lunch_date, marker|
-      # marker.lat @lunch_date.latitude
-      # marker.lng @lunch_date.longitude
-      # marker.infowindow @lunch_date.location_name
-      # end
+    @single_date_hash = Gmaps4rails.build_markers(@lunch_date) do |lunch_date, marker|
+      marker.lat lunch_date.latitude
+      marker.lng lunch_date.longitude
+      marker.infowindow "<span class='iwstyle'>" + "#{lunch_date.location_name}" + "<br />" + "#{lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p")}" + "<br />" + "#{lunch_date.creator.username}" + "</span>"
+      #infoWindow_details
+    end
+    # Broken but keep for later -- in model
+    # gmaps_marker_hash(@lunch_date)
   end
 
   def new
@@ -89,7 +98,15 @@ class LunchDatesController < ApplicationController
   end
 
   def my_dates
-    @lunch_dates = LunchDate.all
+    all_dates = LunchDate.all
+    @lunch_dates = []
+    @lunch_dates = all_dates.select {|date| date.creator == current_user}
+  end
+
+  def my_matches
+    all_matches = Match.all
+    @matches = []
+    @matches = all_matches.select {|match| match.user == current_user}
   end
 
   def confirm_date

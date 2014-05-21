@@ -3,13 +3,16 @@
 
 <h1>Lunch Dates List</h1>
 
-<% if @unconfirmed_other_users_lunch_dates.count > 0 %>
+<!-- Dont show the map unless there are dates to be displayed -->
+<% if @unconfirmed_other_users_lunch_dates.any? %>
 <p>
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 400px;'></div>
 </div>
 </p>
 <% end %>
+
+<!-- Output each date with info and total count at bottom -->
 <% count = 0 %>
 <% @unconfirmed_other_users_lunch_dates.each do |ld| %>
   <p>
@@ -28,7 +31,7 @@
 <% end %>
 <%= count %> Lunch Date(s) Found
 
-<!-- DONT TOUCH MAP IS WORKING -->
+<!-- Script for Gmap -->
 <script type="text/javascript" charset="utf-8">
 handler = Gmaps.build('Google');
 handler.buildMap({
@@ -44,4 +47,3 @@ handler.buildMap({
   handler.fitMapToBounds();
 });
 </script>
-<!-- DONT TOUCH MAP IS WORKING -->
