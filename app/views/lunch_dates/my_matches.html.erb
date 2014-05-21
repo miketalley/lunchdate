@@ -13,9 +13,12 @@
   <%= match.lunch_date.creator.gender %><br />
   <p>
 <% end %>
+<%= @confirmed_matches.count %> Match(es) Found
+<br />
 
 <h2>Unconfirmed</h2>
 <% @unconfirmed_matches.each do |match| %>
   <%= match.inspect %><br />
   <%= match.lunch_date.inspect %>
 <% end %>
+ <%= @unconfirmed_matches.count %> Match(es) Found

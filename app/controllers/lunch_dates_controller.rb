@@ -77,6 +77,7 @@ class LunchDatesController < ApplicationController
     coordinates = []
     client = CURRENT_USER
     coordinates = Geocoder.coordinates(params[:query_term])
+    binding.pry
     @locations = client.spots(coordinates[0], coordinates[1], types: ['restaurant', 'food'], radius: 1000)
   end
 
