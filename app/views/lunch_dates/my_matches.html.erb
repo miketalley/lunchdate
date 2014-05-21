@@ -16,5 +16,6 @@
 
 <h2>Unconfirmed</h2>
 <% @unconfirmed_matches.each do |match| %>
-  <%= match.inspect %>
+  <%= match.inspect %><br />
+  <%= match.lunch_date.inspect %>
 <% end %>
