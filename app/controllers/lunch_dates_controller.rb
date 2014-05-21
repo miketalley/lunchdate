@@ -107,6 +107,15 @@ class LunchDatesController < ApplicationController
     all_matches = Match.all
     @matches = []
     @matches = all_matches.select {|match| match.user == current_user}
+    @confirmed_matches = []
+    @unconfirmed_matches = []
+    @matches.each do |match|
+      if match.lunch_date.present?
+        @confirmed_matches << match
+      else
+        @unconfirmed_matches << match
+      end
+    end
   end
 
   def confirm_date

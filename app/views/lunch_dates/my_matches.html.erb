@@ -1,8 +1,11 @@
 <h1>My Accepted Dates</h1>
-<% count = 0 %>
-<% @matches.each do |match| %>
-  <%= count %>
-  <%= match.inspect %><br />
-  <%= match.lunch_date.inspect %><br />
-  <% count += 1 %>
+
+<h2>Confirmed</h2>
+<% @confirmed_matches.each do |match| %>
+
+<% end %>
+
+<h2>Unconfirmed</h2>
+<% @unconfirmed_matches.each do |match| %>
+
 <% end %>
