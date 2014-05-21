@@ -8,6 +8,7 @@
     Location: <%= ld.location_name %><br />
     Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
     Matches:
+    <% if ld.matches.count > 0 %>
       <table>
         <tr>
           <th>Status</th>
@@ -36,6 +37,9 @@
         </tr>
         <% end %>
       </table>
+    <% else %>
+      None
+    <% end %>
     <%= link_to 'Edit/Delete Date Proposal', edit_lunch_date_path(ld) %>
   <% end %>
   </p>

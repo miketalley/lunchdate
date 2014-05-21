@@ -7,10 +7,15 @@ class LunchDatesController < ApplicationController
     @unconfirmed_other_users_lunch_dates = []
     @lunch_dates = LunchDate.all
     @lunch_dates.each do |ld|
-      if (ld.creator != current_user) && (!ld.matches.map{ |match| match.status }.include? 'Confirmed')
+      if (
+        (ld.creator != current_user) &&
+        (!ld.matches.map{ |match| match.status }.include? 'Confirmed') &&
+        (!ld.expired)
+        )
         @unconfirmed_other_users_lunch_dates << ld
       end
     end
+    @unconfirmed_other_users_lunch_dates.sort_by{:date_time}
     @hash = Gmaps4rails.build_markers(@unconfirmed_other_users_lunch_dates) do |lunch_date, marker|
       marker.lat lunch_date.latitude
       marker.lng lunch_date.longitude
@@ -90,18 +95,23 @@ class LunchDatesController < ApplicationController
   end
 
   def confirm_date
-    lunch_date = LunchDate.find(params[:id])
-    match = Match.find(params[:match_id_to_confirm])
-    match.status = 'Confirmed'
+    lunch_date_to_confirm = LunchDate.find(params[:id])
+    match_to_confirm = Match.find(params[:match_id_to_confirm])
+    match_to_confirm.status = 'Confirmed'
+    lunch_date_to_confirm.matches.each do |match|
+      if match != match_to_confirm
+        match.status = 'Cancelled - User Accepted Another Date'
+      end
+    end
     # This should have Pony send a confirmation email to creator and attendee
     # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
     # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
-    if match.save
+    if match_to_confirm.save
       flash[:message] = "Lunch Date Confirmed"
-      redirect_to lunch_date_path(lunch_date)
+      redirect_to lunch_date_path(lunch_date_to_confirm)
     else
       flash[:message] = 'Something went wrong'
-      redirect_to lunch_date_path(lunch_date)
+      redirect_to lunch_date_path(lunch_date_to_confirm)
     end
   end
 

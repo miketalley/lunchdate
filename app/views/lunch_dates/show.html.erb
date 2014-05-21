@@ -12,6 +12,10 @@
 Creator: <%= @lunch_date.creator.username %><br />
 Location: <%= @lunch_date.location_name %><br />
 Date/Time: <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
+Status: <%= @lunch_date.matches.count %> Acceptances<br /><ul>
+  <% @lunch_date.matches.each do |match| %>
+    <li><%= match.status %></li><br />
+  <% end %>
 </p>
 </h3>
 
