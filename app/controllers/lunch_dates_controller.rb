@@ -152,7 +152,8 @@ class LunchDatesController < ApplicationController
       :longitude,
       :date_time,
       :created_at,
-      :updated_at
+      :updated_at,
+      :comment
     )
   end
 

@@ -6,6 +6,12 @@
   <%= f.hidden_field :longitude %>
   <%= f.label :date_time, 'Date/Time: ' %>
   <%= f.datetime_select :date_time, order: [:month, :day], discard_year: true, minute_step: 5, ampm: true, default: Time.now %><br />
+  <%= f.label :comment %><br />
+  <%= f.text_area :comment %><br />
+  <%= f.label :dutch, 'Dutch/Two Cards/Split Check: ' %>
+  <%= f.check_box :dutch %></br>
+  <%= f.label :time_limit, 'Time Limit for Lunch: ' %>
+  <%= f.select :time_limit, LunchDate::TIME_LIMIT %><br />
   <%= f.submit %>
 <% end %>
 

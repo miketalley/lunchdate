@@ -1,4 +1,6 @@
 class LunchDate < ActiveRecord::Base
+  TIME_LIMIT = ['30 Minutes', '60 Minutes']
+
   belongs_to :creator, class_name: 'User'
   has_many :matches
   has_many :users, through: :matches
