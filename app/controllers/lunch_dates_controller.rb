@@ -4,8 +4,14 @@ class LunchDatesController < ApplicationController
 
 
   def index
+    @unconfirmed_other_users_lunch_dates = []
     @lunch_dates = LunchDate.all
-    @hash = Gmaps4rails.build_markers(@lunch_dates) do |lunch_date, marker|
+    @lunch_dates.each do |ld|
+      if (ld.creator != current_user) && (!ld.matches.map{ |match| match.status }.include? 'Confirmed')
+        @unconfirmed_other_users_lunch_dates << ld
+      end
+    end
+    @hash = Gmaps4rails.build_markers(@unconfirmed_other_users_lunch_dates) do |lunch_date, marker|
       marker.lat lunch_date.latitude
       marker.lng lunch_date.longitude
       marker.infowindow lunch_date.location_name
@@ -68,8 +74,8 @@ class LunchDatesController < ApplicationController
     @match.user = current_user
     @match.lunch_date = lunch_date
     @match.status = 'Pending Confirmation'
-    # This should have Pony send a confirmation email to the creator
-    send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
+    # This should have Pony send a confirmation request to the creator
+    # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
     if @match.save
       flash[:message] = "Email Sent to Creator\nLunch Date is Pending Confirmation"
       redirect_to lunch_date_path(lunch_date)
@@ -81,6 +87,22 @@ class LunchDatesController < ApplicationController
 
   def my_dates
     @lunch_dates = LunchDate.all
+  end
+
+  def confirm_date
+    lunch_date = LunchDate.find(params[:id])
+    match = Match.find(params[:match_id_to_confirm])
+    match.status = 'Confirmed'
+    # This should have Pony send a confirmation email to creator and attendee
+    # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
+    # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
+    if match.save
+      flash[:message] = "Lunch Date Confirmed"
+      redirect_to lunch_date_path(lunch_date)
+    else
+      flash[:message] = 'Something went wrong'
+      redirect_to lunch_date_path(lunch_date)
+    end
   end
 
   def lunch_date_params

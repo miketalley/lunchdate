@@ -8,10 +8,10 @@
     <%= f.password_field :current_password%></p>
   <% end %>
 
-  <p><%= f.label :password %><br />
+  <p><%= f.label :password %><i>(leave blank if no change)</i><br />
   <%= f.password_field :password %></p>
 
-  <p><%= f.label :password_confirmation %><br />
+  <p><%= f.label :password_confirmation %><i>(leave blank if no change)</i><br />
   <%= f.password_field :password_confirmation %></p>
 
   <p><%= f.label :email %><br />
@@ -33,6 +33,7 @@
   <%= f.select :state, User::STATES %></p>
 
   <p><%= f.label :image_url %><br />
+  <%= image_tag :image_url, size: '80x80' %><br />
   <%= f.url_field :image_url %></p>
 
   <p><%= f.label :quote %><br />

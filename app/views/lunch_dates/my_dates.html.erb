@@ -7,11 +7,35 @@
     Creator: <%= ld.creator.username %><br />
     Location: <%= ld.location_name %><br />
     Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
-    Matches Status: <ul>
-      <% ld.matches.each do |match| %>
-        <li><%= match.status %></li>
-      <% end %>
-    </ul>
+    Matches:
+      <table>
+        <tr>
+          <th>Status</th>
+          <th>Image</th>
+          <th>Username</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Sexual Orientation</th>
+          <th>Quote</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Confirm</th>
+        </tr>
+        <% ld.matches.each do |match| %>
+        <tr>
+          <td><%= match.status %></td>
+          <td><%= image_tag(match.user.image_url, size: '100x100') %></td>
+          <td><%= match.user.username %></td>
+          <td><%= match.age(match.user.dob) %></td>
+          <td><%= match.user.gender %></td>
+          <td><%= match.user.sexual_orientation %></td>
+          <td><%= match.user.quote %></td>
+          <td><%= match.user.city %></td>
+          <td><%= match.user.state %></td>
+          <td><%= link_to 'Confirm Lunch Date', confirm_date_path(ld, match_id_to_confirm: match.id), data: { confirm: "Confirm Lunch Date with #{match.user.username}"} %></td>
+        </tr>
+        <% end %>
+      </table>
     <%= link_to 'Edit/Delete Date Proposal', edit_lunch_date_path(ld) %>
   <% end %>
   </p>

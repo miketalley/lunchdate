@@ -3,14 +3,18 @@
 
 <h1>Lunch Dates List</h1>
 
+<% if @unconfirmed_other_users_lunch_dates.count > 0 %>
 <p>
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 400px;'></div>
 </div>
 </p>
+<% end %>
+<% count = 0 %>
 <% @lunch_dates.each do |ld| %>
   <p>
-  <% if ld.creator != current_user %>
+  <% if (ld.creator != current_user) && (!ld.matches.map{ |match| match.status }.include? 'Confirmed') %>
+    <% count += 1 %>
     <%= image_tag(ld.creator.image_url, size: "80x80") %><br />
     Creator: <%= ld.creator.username %><br />
     Location: <%= ld.location_name %><br />
@@ -24,6 +28,7 @@
   <% end %>
   </p>
 <% end %>
+<%= count %> Lunch Date(s) Found
 
 <!-- DONT TOUCH MAP IS WORKING -->
 <script type="text/javascript" charset="utf-8">
