@@ -1,18 +1,24 @@
 <table>
   <tr>
+    <th></th>
     <th>Name</th>
     <th>Address</th>
     <th>Rating</th>
-    <th>Lat</th>
-    <th>Long</th>
+    <th>Website</th>
+    <th>Phone</th>
   </tr>
 <% @locations.each do |spot| %>
   <tr>
+    <td>
+      <% if !spot.icon.nil? %>
+        <%= image_tag(spot.icon, size: '35x35') %>
+      <% end %>
+    </td>
     <td><%= link_to spot.name, new_lunch_date_path(location_name: spot.name, latitude: spot.lat, longitude: spot.lng) %></td>
     <td><%= spot.formatted_address %></td>
-    <td><%= spot.rating %>
-    <td><%= spot.lat %></td>
-    <td><%= spot.lng %></td>
+    <td><%= spot.rating %></td>
+    <td><%= link_to spot.url, spot.url %></td>
+    <td><%= spot.formatted_phone_number %></td>
   </tr>
 <% end %>
 </table>

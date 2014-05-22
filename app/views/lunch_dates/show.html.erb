@@ -9,9 +9,10 @@
 <h3>
 <p>
 <%= image_tag(@lunch_date.creator.image_url, size: "200x200") %><br />
-Creator: <%= @lunch_date.creator.username %><br />
-Location: <%= @lunch_date.location_name %><br />
+Creator: <%= link_to @lunch_date.creator.username, profile_path(@lunch_date.creator.username) %><br />
+Location: <%= link_to @lunch_date.location_name, query_result_path(query_term: @lunch_date.location_name) %><br />
 Date/Time: <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
+Comments: <%= @lunch_date.comment %><br />
 Status: <%= @lunch_date.matches.count %> Acceptances<br /><ul>
   <% @lunch_date.matches.each do |match| %>
     <li><%= match.status %></li><br />
