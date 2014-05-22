@@ -1,24 +1,20 @@
-<table>
-  <tr>
-    <th></th>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Rating</th>
-    <th>Website</th>
-    <th>Phone</th>
-  </tr>
-<% @locations.each do |spot| %>
-  <tr>
-    <td>
-      <% if !spot.icon.nil? %>
-        <%= image_tag(spot.icon, size: '35x35') %>
-      <% end %>
-    </td>
-    <td><%= link_to spot.name, new_lunch_date_path(location_name: spot.name, latitude: spot.lat, longitude: spot.lng) %></td>
-    <td><%= spot.formatted_address %></td>
-    <td><%= spot.rating %></td>
-    <td><%= link_to spot.url, spot.url %></td>
-    <td><%= spot.formatted_phone_number %></td>
-  </tr>
-<% end %>
-</table>
+<div class="container">
+  <% @locations.each do |spot| %>
+    <div class="row">
+      <div class="large-4 columns">
+        <label>Name</label>
+        <%= link_to spot.name, new_lunch_date_path(location_name: spot.name, latitude: spot.lat, longitude: spot.lng) %>
+      </div>
+      <div class="large-4 columns">
+        <% if !spot.icon.nil? %>
+          <%= image_tag(spot.icon, size: '25x25', id: 'location_icons') %>
+        <% end %>
+      </div>
+      <div class="large-4 columns">
+        <label>Rating</label>
+        <%= spot.rating %>
+      </div>
+    <hr>
+    </div>
+  <% end %>
+</div>
