@@ -1,14 +1,44 @@
 <% array.each do |match| %>
-  <p>
-  <%= match.lunch_date.location_name %><br />
-  <%= match.lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
-  <%= match.lunch_date.comment %>
-  </p>
-  <p>
-  <%= link_to match.lunch_date.creator.username, profile_path(match.lunch_date.creator.username) %><br />
-  <%= image_tag(match.lunch_date.creator.image_url, size: '200x200') %><br />
-  <%= match.lunch_date.creator.age(match.lunch_date.creator.dob) %><br />
-  <%= match.lunch_date.creator.gender %><br />
-  <p>
+<div class="panel">
+  <div class="row">
+    <div class="large-3 columns">
+      <label>Username</label>
+      <h5><%= link_to match.lunch_date.creator.username, profile_path(match.lunch_date.creator.username) %></h5>
+    </div>
+    <div class="large-3 columns">
+      <label>Location</label>
+      <h5><%= match.lunch_date.location_name %></h5>
+    </div>
+    <div class="large-2 columns">
+      <label>Date/Time</label>
+      <%= match.lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %>
+    </div>
+    <div class="large-2 columns">
+      <label>Age</label>
+      <%= match.lunch_date.creator.age(match.lunch_date.creator.dob) %>
+    </div>
+    <div class="large-2 columns">
+      <label>Gender</label>
+      <%= match.lunch_date.creator.gender %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-3 columns">
+      <label>Image</label>
+      <%= image_tag(match.lunch_date.creator.image_url, size: '120x120') %>
+    </div>
+    <div class="large-9 columns">
+      <div class="panel callout">
+      <label>Comment</label>
+        <% if match.lunch_date.comment.nil? %>
+          None
+        <% else %>
+          <%= match.lunch_date.comment %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>
 <%= array.count %> Match(es) Found
