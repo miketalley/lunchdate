@@ -37,7 +37,7 @@
         <td><%= match.status %></td>
         <td><%= image_tag(match.user.image_url, size: '100x100') %></td>
         <td><%= link_to match.user.username, profile_path(match.user.username) %></td>
-        <td><%= match.age(match.user.dob) %></td>
+        <td><%= match.user.age(match.user.dob) %></td>
         <td><%= match.user.gender %></td>
         <td><%= match.user.sexual_orientation %></td>
         <td><%= match.user.quote %></td>

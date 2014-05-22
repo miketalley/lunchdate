@@ -31,7 +31,7 @@ Status: <%= @lunch_date.matches.count %> Acceptances<br /><ul>
   <%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'} %>
 <% end %>
 
-<!-- DONT TOUCH MAP IS WORKING -->
+<!-- Script for Gmap -->
 <script type="text/javascript" charset="utf-8">
 handler = Gmaps.build('Google');
 handler.buildMap({
@@ -45,7 +45,7 @@ handler.buildMap({
   markers = handler.addMarkers(<%= raw @single_date_hash.to_json %>);
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
-  handler.getMap().setZoom(15)
+  handler.getMap().setZoom(15);
 });
 </script>
-<!-- DONT TOUCH MAP IS WORKING -->
+

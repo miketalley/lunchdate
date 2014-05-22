@@ -5,8 +5,8 @@
   <%= match.lunch_date.comment %>
   </p>
   <p>
-  <%= match.lunch_date.creator.username %><br />
-  <%= image_tag(match.lunch_date.creator.image_url) %><br />
+  <%= link_to match.lunch_date.creator.username, profile_path(match.lunch_date.creator.username) %><br />
+  <%= image_tag(match.lunch_date.creator.image_url, size: '200x200') %><br />
   <%= match.lunch_date.creator.age(match.lunch_date.creator.dob) %><br />
   <%= match.lunch_date.creator.gender %><br />
   <p>

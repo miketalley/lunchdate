@@ -28,6 +28,7 @@ class LunchDatesController < ApplicationController
   end
 
   def show
+    @zoom_level = 15
     @single_date_hash = Gmaps4rails.build_markers(@lunch_date) do |lunch_date, marker|
       marker.lat lunch_date.latitude
       marker.lng lunch_date.longitude
@@ -131,6 +132,7 @@ class LunchDatesController < ApplicationController
     lunch_date_to_confirm.matches.each do |match|
       if match != match_to_confirm
         match.status = 'Cancelled - User Accepted Another Date'
+        match.save
       end
     end
     # This should have Pony send a confirmation email to creator and attendee

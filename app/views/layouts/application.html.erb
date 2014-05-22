@@ -24,14 +24,16 @@
 <% else %>
      <%= link_to "Sign up", new_user_registration_path %> |
      <%= link_to "Login", new_user_session_path %>
-<% end %>
+<% end %><br />
 
 <!-- Flash Message Code -->
 <% flash.each do |name, msg| %>
   <% if msg.is_a?(String) %>
     <%= content_tag :div, msg, :class => "flash_#{name}" %>
   <% end %>
-<% end %>
+<% end %><br />
+
+<%= link_to 'Back', :back %>
 
 <%= yield %>
 
