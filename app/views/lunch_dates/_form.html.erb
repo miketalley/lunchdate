@@ -1,15 +1,15 @@
 <%= form_for @lunch_date do |f| %>
 <div class="container">
-  <div class="row">
+  <div class="row collapse">
     <div class="large-12 columns">
       <%= f.label :location_name %>
-      <%= @lunch_date.location_name %>
+      <h3><%= @lunch_date.location_name %></h3>
       <%= f.hidden_field :location_name %>
       <%= f.hidden_field :latitude %>
       <%= f.hidden_field :longitude %>
     </div>
   </div>
-  <div class="row">
+  <div class="row collapse">
     <div class="large-12 columns">
       <%= f.label :date_time, 'Date/Time' %>
       <div class="row">
@@ -17,26 +17,26 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row collapse">
     <div class="large-12 columns">
       <%= f.label :comment %>
       <%= f.text_area(:comment) %>
     </div>
   </div>
-  <div class="row">
+  <div class="row collapse">
     <div class="large-12 columns">
       <%= f.label :dutch, 'Dutch/Two Cards/Split Check' %>
       <%= f.check_box :dutch %>
     </div>
   </div>
-  <div class="row">
+  <div class="row collapse">
     <div class="large-12 columns">
       <%= f.label :time_limit, 'Time Limit for Lunch' %>
       <%= f.select :time_limit, LunchDate::TIME_LIMIT %>
     </div>
   </div>
   <div class="row">
-      <%= f.submit class: 'button expand' %>
+      <%= f.submit class: 'radius button expand' %>
   </div>
 </div>
 <% end %>

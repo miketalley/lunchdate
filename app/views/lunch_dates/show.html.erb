@@ -1,35 +1,41 @@
+<div class="container">
 <h1>View/Accept Lunch Date</h1>
 
-<p>
-<div style='width: 800px;'>
-  <div id="map" style='width: 400px; height: 200px;'></div>
-</div>
-</p>
+<div id="map" style='width: 100%; height: 200px;'></div>
 
-<h3>
-<p>
-<%= image_tag(@lunch_date.creator.image_url, size: "200x200") %><br />
-Creator: <%= link_to @lunch_date.creator.username, profile_path(@lunch_date.creator.username) %><br />
-Location: <%= link_to @lunch_date.location_name, query_result_path(query_term: @lunch_date.location_name) %><br />
-Date/Time: <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
-Comments: <%= @lunch_date.comment %><br />
-Status: <%= @lunch_date.matches.count %> Acceptances<br /><ul>
-  <% @lunch_date.matches.each do |match| %>
-    <li><%= match.status %></li><br />
-  <% end %>
-</p>
-</h3>
+<h5>
+<div class="row collapse left">
+  <div class="large-2 columns">
+    <%= image_tag(@lunch_date.creator.image_url, size: "120x120") %>
+  </div>
+  <div class="large-10 columns">
+    <label>Creator</label><%= link_to @lunch_date.creator.username, profile_path(@lunch_date.creator.username) %>
+    <label>Location</label> <%= link_to @lunch_date.location_name, query_result_path(query_term: @lunch_date.location_name) %>
+    <label>Date/Time</label> <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
+    <label>Comments</label> <%= @lunch_date.comment %><br />
+  </div>
+</div>
+</h5>
+
+<div class="row collapse left">
+  <div class="large-12 columns">
+    <label>Status</label> <%= @lunch_date.matches.count %> Acceptances
+      <ul>
+      <% @lunch_date.matches.each do |match| %>
+        <li><%= match.status %></li>
+      <% end %>
+      </ul>
+  </div>
+</div>
+
 
 <% if (@lunch_date.creator != current_user) && (!@lunch_date.matches.map{ |match| match.user_id }.include? current_user.id) %>
   <h2><%= link_to 'Accept This Lunch Date', @lunch_date, method: :accept_date, data: { confirm: 'Accept Date?'} %></h2>
 <% end %>
 
-
-<%= link_to 'View All Dates', lunch_dates_path, 'data-no-turbolink' => true %>
 <% if @lunch_date.creator == current_user %>
-  |
-  <%= link_to 'Edit Date', edit_lunch_date_path(@lunch_date) %> |
-  <%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'} %>
+  <%= link_to 'Edit Date', edit_lunch_date_path(@lunch_date), class: 'tiny button radius' %>
+  <%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'}, class: 'tiny button radius' %>
 <% end %>
 
 <!-- Script for Gmap -->
@@ -49,4 +55,5 @@ handler.buildMap({
   handler.getMap().setZoom(15);
 });
 </script>
+</div>
 
