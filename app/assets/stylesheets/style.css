@@ -12,4 +12,16 @@
   white-space:nowrap;
 }
 
+.date_info {
+  text-align: left;
+}
+
+#frontpage-panel {
+  width: 50%;
+}
+
+#align_this_right {
+  float: right;
+}
+
 

@@ -1,15 +1,17 @@
 <div class="container">
-<h1>Lunch Date</h1>
-<h3>
-The best way to make real connections with real people!
-</h3>
-<p>
-Simply choose a location, day and time, and add comments or details. Your lunch date will be publicly viewable and other users can submit requests to join you for the date. Select from the list of people willing to join you to let them know the date is confirmed. It's fun and easy!
-</p>
-<%= link_to 'View Posted Lunch Dates', lunch_dates_path, 'data-no-turbolink' => true, class: "button radius" %><br />
-<% if user_signed_in? %>
-  <%= link_to 'Create New Lunch Date', new_query_path, class: "button radius" %><br />
-<% end %>
-
-</h3>
+  <h1>Lunch Date</h1>
+  <hr>
+  <h3>
+  The best way to make real connections with real people!
+  </h3>
+  <hr>
+  <div class="panel callout radius">
+    Simply choose a location, day and time, and add comments or details. Your lunch date will be publicly viewable and other users can submit requests to join you for the date. Select from the list of people willing to join you to let them know the date is confirmed. It's fun and easy!
+  </div>
+  <div class="row">
+    <%= link_to 'View Posted Lunch Dates', lunch_dates_path, 'data-no-turbolink' => true, class: "button radius large-5 columns" %>
+    <% if user_signed_in? %>
+      <%= link_to 'Create New Lunch Date', new_query_path, class: "button radius large-5 columns" %>
+    <% end %>
+  </div>
 </div>
