@@ -1,12 +1,10 @@
-<h1>Find Lunch Date Location</h1>
+<div class="container">
+  <h1>Find Lunch Date Location</h1>
 
-<%= form_tag(query_result_path, :method=>'post', :multipart => true) do %>
- <p>
-   Location Query:<br />
-   <%= text_field_tag :query_term %><br />
-   <i>Enter an address or location</i>
- </p>
- <p>
-   <%= submit_tag 'Search Places' %>
- </p>
+  <%= form_tag(query_result_path, :method=>'post', :multipart => true) do %>
+   <label>Location Query</label>
+   <%= text_field_tag :query_term %>
+   <i>Enter an address or location</i><br />
+   <%= submit_tag 'Search Places', class: 'button radius' %>
 <% end %>
+</div>

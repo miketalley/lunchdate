@@ -20,7 +20,7 @@
     </div>
     <div class="date_info large-4 columns">
       Creator: <%= link_to ld.creator.username, profile_path(ld.creator.username) %><br />
-      Location: <%= link_to ld.location_name, query_result_path({id: ld.id, query_term: ld.location_name}) %><br />
+      Location: <%= link_to ld.location_name, reroute_query_result_path({id: ld.id, query_term: ld.location_name}) %><br />
       Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
     </div>
     <div class="date_match_status large-3 columns">
@@ -32,7 +32,7 @@
       </ul>
     </div>
     <div class="accept_date large-2 columns">
-      <%= link_to 'View/Accept Date Proposal', lunch_date_path(ld), class: "button", id: "dont_wrap_this" %>
+      <%= link_to 'View/Accept Date Proposal', lunch_date_path(ld), class: "button radius", id: "dont_wrap_this" %>
     </div>
   </div>
   <hr>

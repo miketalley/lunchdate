@@ -1,45 +1,79 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-  <p><%= f.label :username %><br />
-  <%= f.text_field :username %></p>
+  <div class="panel">
+    <div class="row">
+      <%= f.label :username %>
+      <%= f.text_field :username %>
+    </div>
+    <div class="row">
+      <% if user_signed_in? %>
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+        <%= f.password_field :current_password%>
+      <% end %>
+    </div>
 
-  <% if user_signed_in? %>
-    <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password%></p>
-  <% end %>
+    <div class="row collapse">
+      <div class="large-6 columns">
+        <%= f.label :password %>
+        <% if user_signed_in? %><i>(leave blank if no change)</i><% end %>
+        <%= f.password_field :password %></p>
+      </div>
+      <div class="large-6 columns">
+        <%= f.label :password_confirmation %>
+        <% if user_signed_in? %><i>(leave blank if no change)</i><% end %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+    </div>
 
-  <p><%= f.label :password %>
-  <% if user_signed_in? %><i>(leave blank if no change)</i><% end %><br />
-  <%= f.password_field :password %></p>
+    <div class="row">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
 
-  <p><%= f.label :password_confirmation %>
-  <% if user_signed_in? %><i>(leave blank if no change)</i><% end %><br />
-  <%= f.password_field :password_confirmation %></p>
+    <div class="row collapse">
+      <div class="large-6 columns">
+        <%= f.label :gender %>
+        <%= f.select :gender, User::GENDER %>
+      </div>
+      <div class="large-6 columns">
+        <%= f.label :sexual_orientation %>
+        <%= f.select :sexual_orientation, User::SEXUAL_ORIENTATION %>
+      </div>
+    </div>
 
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
+    <div class="row collapse">
+    <%= f.label :dob, 'Date of Birth' %>
+      <div class="row">
+        <%= f.date_select :dob, {order: [:month, :day, :year], start_year: 1900, end_year: Date.today.year}, {class: 'large-4 columns'} %>
+      </div>
+    </div>
 
-  <p><%= f.label :gender %><br />
-  <%= f.select :gender, User::GENDER %></p>
+    <div class="row collapse">
+      <div class="large-6 columns">
+        <%= f.label :city %>
+        <%= f.text_field :city %>
+      </div>
+      <div class="large-6 columns">
+        <%= f.label :state %>
+        <%= f.select :state, User::STATES %>
+      </div>
+    </div>
 
-  <p><%= f.label :sexual_orientation %><br />
-  <%= f.select :sexual_orientation, User::SEXUAL_ORIENTATION %></p>
+    <div class="row">
+      <%= f.label :image_url %>
+      <% if user_signed_in? %>
+        <%= image_tag(current_user.image_url, size: '80x80') %>
+      <% end %>
+      <%= f.url_field :image_url %>
+    </div>
 
-  <p><%= f.label :dob, 'Date of Birth' %><br />
-  <%= f.date_select :dob, {order: [:day, :month, :year], start_year: 1900, end_year: Date.today.year}, {class: 'common-class'} %></p>
+    <div class="row">
+      <%= f.label :quote %>
+      <%= f.text_field :quote %>
+    </div>
 
-  <p><%= f.label :city %><br />
-  <%= f.text_field :city %></p>
-
-  <p><%= f.label :state %><br />
-  <%= f.select :state, User::STATES %></p>
-
-  <p><%= f.label :image_url %><br />
-  <%= image_tag :image_url, size: '80x80' %><br />
-  <%= f.url_field :image_url %></p>
-
-  <p><%= f.label :quote %><br />
-  <%= f.text_field :quote %></p>
-
-  <p><%= f.submit %></p>
+    <div class="row">
+      <%= f.submit class: 'expand button radius' %>
+    </div>
+  </div>
 <% end %>

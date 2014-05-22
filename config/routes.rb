@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # Query paths for finding location
   get 'lunch_dates/new_query' => 'lunch_dates#new_query', as: 'new_query'
   post 'lunch_dates/query_result' => 'lunch_dates#query_result', as: 'query_result'
+  get 'lunch_dates/query_result' => 'lunch_dates#query_result', as: 'reroute_query_result'
 
 
   # Twilio Route
