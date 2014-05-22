@@ -5,11 +5,8 @@
 
 <!-- Dont show the map unless there are dates to be displayed -->
 <% if @unconfirmed_other_users_lunch_dates.any? %>
-<p>
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+<div id="map" style='width: 100%; height: 400px;'>
 </div>
-</p>
 <% end %>
 
 <!-- Output each date with info and total count at bottom -->
@@ -18,17 +15,15 @@
   <p>
   <% count += 1 %>
   <div class="row">
-    <div class="date_thumbnail large-4 columns">
+    <div class="date_thumbnail large-2 columns">
       <%= image_tag(ld.creator.image_url, size: '120x120') %>
     </div>
-    <div class="date_info large-8 columns">
+    <div class="date_info large-4 columns">
       Creator: <%= link_to ld.creator.username, profile_path(ld.creator.username) %><br />
-      Location: <%= ld.location_name %><br />
+      Location: <%= link_to ld.location_name, query_result_path({id: ld.id, query_term: ld.location_name}) %><br />
       Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
     </div>
-  </div>
-  <div class="row">
-    <div class="date_match_status">
+    <div class="date_match_status large-3 columns">
       Matches Status:
       <ul>
       <% ld.matches.each do |match| %>
@@ -36,10 +31,11 @@
       <% end %>
       </ul>
     </div>
+    <div class="accept_date large-2 columns">
+      <%= link_to 'View/Accept Date Proposal', lunch_date_path(ld), class: "button", id: "dont_wrap_this" %>
+    </div>
   </div>
-  <div class="row">
-    <%= link_to 'View/Accept Date Proposal', lunch_date_path(ld) %>
-  </div>
+  <hr>
 <% end %>
 </div>
 <%= count %> Lunch Date(s) Found

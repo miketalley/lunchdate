@@ -1,53 +1,76 @@
+<div class="container">
 <h1>My Posted Lunch Dates</h1>
 
 <% @lunch_dates.each do |ld| %>
-  <p>
-  Location: <%= ld.location_name %><br />
-  Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
-  Status:
-  <% if ld.matches.any? && (ld.matches.map{ |match| match.status }.include? 'Confirmed') %>
-    Confirmed - <%= ld.matches.where(status: 'Confirmed').first.user.username %><br />
-  <% elsif ld.matches.any? %>
-    Pending Confirmation<br />
-  <% else %>
-    No Matches Yet<br />
-  <% end %>
-  <%= link_to 'View', lunch_date_path(ld) %> |
-  <%= link_to 'Edit', edit_lunch_date_path(ld) %> |
-  <%= link_to 'Delete', ld, method: :delete, data: { confirm: 'Delete Date?'} %>
-  </p>
-  <p>
-  <% if ld.matches.any? %>
-  Matches:
-    <table>
-      <tr>
-        <th>Status</th>
-        <th>Image</th>
-        <th>Username</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Sexual Orientation</th>
-        <th>Quote</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Confirm</th>
-      </tr>
-      <% ld.matches.each do |match| %>
-      <tr>
-        <td><%= match.status %></td>
-        <td><%= image_tag(match.user.image_url, size: '100x100') %></td>
-        <td><%= link_to match.user.username, profile_path(match.user.username) %></td>
-        <td><%= match.user.age(match.user.dob) %></td>
-        <td><%= match.user.gender %></td>
-        <td><%= match.user.sexual_orientation %></td>
-        <td><%= match.user.quote %></td>
-        <td><%= match.user.city %></td>
-        <td><%= match.user.state %></td>
-        <td><%= link_to 'Confirm Lunch Date', confirm_date_path(ld, match_id_to_confirm: match.id), data: { confirm: "Confirm Lunch Date with #{match.user.username}"} %></td>
-      </tr>
+<div class="panel">
+  <div class="row left">
+    <div class="large-4 columns">
+      <label>Location</label><h3><%= ld.location_name %></h3>
+    </div>
+    <div class="large-4 columns">
+      <label>Date/Time</label><h4><%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %></h4>
+    </div>
+    <div class="large-4 column">
+      <label>Status</label>
+      <h5>
+      <% if ld.matches.any? && (ld.matches.map{ |match| match.status }.include? 'Confirmed') %>
+        Confirmed - <%= ld.matches.where(status: 'Confirmed').first.user.username %>
+      <% elsif ld.matches.any? %>
+        Pending Confirmation
+      <% else %>
+        No Matches Yet
       <% end %>
-    </table>
-  <% end %>
-  </p>
-<% end %>
+      </h5>
+    </div>
+  </div>
+
+  <div class="row left">
+    <div class="large-6 columns">
+      <%= link_to 'View', lunch_date_path(ld), class: 'tiny button radius' %>
+      <%= link_to 'Edit', edit_lunch_date_path(ld), class: 'tiny button radius' %>
+      <%= link_to 'Delete', ld, method: :delete, data: { confirm: 'Delete Date?'}, class: 'tiny button radius' %>
+    </div>
+  </div>
+
+  <div class="row left">
+    <% if ld.matches.any? %>
+    <label>Matches</label>
+
+      <% ld.matches.each do |match| %>
+      <div class="row panel callout">
+        <div class="large-2 column">
+          <label>Status</label>
+          <%= match.status %>
+        </div>
+        <div class="large-1 column">
+          <label>Image</label>
+          <%= image_tag(match.user.image_url, size: '100x100') %>
+        </div>
+        <div class="large-2 column">
+          <label>Username</label>
+          <%= link_to match.user.username, profile_path(match.user.username) %>
+        </div>
+        <div class="large-1 column">
+          <label>Age</label>
+          <%= match.user.age(match.user.dob) %>
+        </div>
+        <div class="large-1 column">
+          <label>Gender</label>
+          <%= match.user.gender %>
+        </div>
+        <div class="large-3 column">
+          <label>Location</label>
+          <%= match.user.city %>, <%= match.user.state %>
+        </div>
+        <div class="large-2 column">
+          <%= link_to 'Confirm', confirm_date_path(ld, match_id_to_confirm: match.id), data: { confirm: "Confirm Lunch Date with #{match.user.username}"}, class: 'small button round', id: 'dont_wrap_this' %>
+        </div>
+      </div><!-- Closes row with match data -->
+      <% end %> <!-- Closes match loop -->
+    <% end %><!-- Ends if -->
+  </div><!-- Closes match row -->
+  <hr>
+</div><!-- Closes panel -->
+<% end %><!-- Ends lunch date loop -->
 <%= @lunch_dates.count %> Date(s) Found
+</div><!-- Closes container -->
