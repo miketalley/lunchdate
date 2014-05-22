@@ -9,15 +9,15 @@
       <label>Location</label>
       <h5><%= match.lunch_date.location_name %></h5>
     </div>
-    <div class="large-2 columns">
+    <div class="large-4 columns">
       <label>Date/Time</label>
       <%= match.lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %>
     </div>
-    <div class="large-2 columns">
+    <div class="large-1 columns">
       <label>Age</label>
       <%= match.lunch_date.creator.age(match.lunch_date.creator.dob) %>
     </div>
-    <div class="large-2 columns">
+    <div class="large-1 columns">
       <label>Gender</label>
       <%= match.lunch_date.creator.gender %>
     </div>

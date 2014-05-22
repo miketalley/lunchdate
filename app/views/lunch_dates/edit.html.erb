@@ -4,8 +4,10 @@
 </div>
 <%= render 'form' %>
 
-<%= link_to 'View Date', lunch_date_path %> |
-<%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'} %>
+<div class="row">
+  <%= link_to 'View Date', lunch_date_path, class: 'small button radius' %>
+  <%= link_to 'Delete Date', @lunch_date, method: :delete, data: { confirm: 'Delete Date?'}, class: 'small button radius' %>
+</div>
 
 
 </div>

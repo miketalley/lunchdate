@@ -10,7 +10,7 @@
   </div>
   <div class="large-10 columns">
     <label>Creator</label><%= link_to @lunch_date.creator.username, profile_path(@lunch_date.creator.username) %>
-    <label>Location</label> <%= link_to @lunch_date.location_name, query_result_path(query_term: @lunch_date.location_name) %>
+    <label>Location</label> <%= @lunch_date.location_name %>
     <label>Date/Time</label> <%= @lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
     <label>Comments</label> <%= @lunch_date.comment %><br />
   </div>

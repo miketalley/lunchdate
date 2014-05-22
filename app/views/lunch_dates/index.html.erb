@@ -20,7 +20,7 @@
     </div>
     <div class="date_info large-4 columns">
       Creator: <%= link_to ld.creator.username, profile_path(ld.creator.username) %><br />
-      Location: <%= link_to ld.location_name, reroute_query_result_path({id: ld.id, query_term: ld.location_name}) %><br />
+      Location: <%= ld.location_name %><br />
       Date/Time: <%= ld.date_time.strftime("%m/%d/%y - %I:%M%p") %><br />
     </div>
     <div class="date_match_status large-3 columns">
