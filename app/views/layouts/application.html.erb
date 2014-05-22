@@ -23,8 +23,9 @@
     </li>
   </ul>
 
+
+  <!-- Right Nav Section -->
   <section class="top-bar-section">
-    <!-- Right Nav Section -->
     <% if user_signed_in? %>
       <ul class="right">
         <li class="active"></li>
@@ -50,51 +51,44 @@
     <% end %>
 
 
-
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <div class="row">
-        <div class="large-3 columns show-for-large-up">
-          <li class="has-form">
-            <%= link_to 'All Dates', lunch_dates_path, 'data-no-turbolink' => true, class: "small button", id: "dont_wrap_this" %>
-          </li>
-          <!-- <li class="divider"></li> -->
-        </div>
-        <div class="large-3 columns show-for-large-up">
-          <li class="has-form">
-            <%= link_to 'Create Date', new_query_path, class: "small button", id: "dont_wrap_this" %>
-          </li>
-        </div>
-        <div class="large-3 columns show-for-large-up">
-          <li class="has-form">
-            <%= link_to 'View My Dates', my_dates_path, class: "small button", id: "dont_wrap_this" %>
-          </li>
-        </div>
-        <div class="large-3 columns show-for-large-up">
-          <li class="has-form">
-            <%= link_to 'View My Accepts', my_matches_path, class: "small button", id: "dont_wrap_this" %>
-          </li>
-        </div>
+  <!-- Left Nav Section -->
+  <ul class="left show-for-large-up small-0">
+    <div class="row">
+      <div class="large-3 columns">
+        <li class="has-form">
+          <%= link_to 'All Dates', lunch_dates_path, 'data-no-turbolink' => true, class: "small button", id: "dont_wrap_this" %>
+        </li>
+        <!-- <li class="divider"></li> -->
       </div>
-    </ul>
-    </strong>
-  </section>
-</nav>
-      </nav>
+      <div class="large-3 columns">
+        <li class="has-form">
+          <%= link_to 'Create Date', new_query_path, class: "small button", id: "dont_wrap_this" %>
+        </li>
+      </div>
+      <div class="large-3 columns">
+        <li class="has-form">
+          <%= link_to 'View My Dates', my_dates_path, class: "small button", id: "dont_wrap_this" %>
+        </li>
+      </div>
+      <div class="large-3 columns">
+        <li class="has-form">
+          <%= link_to 'View My Accepts', my_matches_path, class: "small button", id: "dont_wrap_this" %>
+        </li>
+      </div>
     </div>
-<!-- OLD STUFF -->
-
-
-    <!-- Flash Message Code -->
+  </ul>
+  </section>
+  </nav>
+  </nav>
+  </div>
+  <!-- Flash Message Code -->
     <% flash.each do |name, msg| %>
       <% if msg.is_a?(String) %>
         <%= content_tag :div, msg, :class => "flash_#{name}" %>
       <% end %>
     <% end %><br />
 
-    <%= link_to 'Back', :back %>
-
+    <%= link_to 'Back', :back, class: 'tiny button' %>
     <%= yield %>
-    <%= javascript_include_tag "application" %>
   </body>
 </html>
