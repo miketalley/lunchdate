@@ -12,6 +12,8 @@
     <%= link_to 'View Posted Lunch Dates', lunch_dates_path, 'data-no-turbolink' => true, class: "button radius large-5 columns" %>
     <% if user_signed_in? %>
       <%= link_to 'Create New Lunch Date', new_query_path, class: "button radius large-5 columns" %>
+    <% else %>
+      <%= link_to 'Sign Up', new_user_registration_path, class: "alert button radius large-5 columns" %>
     <% end %>
   </div>
 </div>
