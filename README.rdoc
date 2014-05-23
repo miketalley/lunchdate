@@ -1,28 +1,27 @@
-== README
+Lunch Date README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This software is developed to allow users to schedule lunch dates online and allow
+other users to be able to view the date location and time and choose if they
+would like to accept the date.
 
-Things you may want to cover:
+To install the software you can clone the repository. Some notes are that this
+software uses <a href="https://github.com/apneadiving/Google-Maps-for-Rails">GMaps4Rails Gem</a>,
+and also the <a href="https://github.com/marceldegraaf/google_places">Google Places Gem</a>.
+
 
 * Ruby version
+  2.1.1
 
 * System dependencies
-
-* Configuration
+  Requires <a href="http://underscorejs.org/">Underscore.js</a>
 
 * Database creation
+  rake db:create
 
 * Database initialization
+  rake db:migrate
 
-* How to run the test suite
+Thanks for checking out my repo. Please feel free to contact me with any questions
+or suggestions!
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+-Mike
