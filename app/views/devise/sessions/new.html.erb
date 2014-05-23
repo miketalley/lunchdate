@@ -1,0 +1,25 @@
+<div class="container">
+<h2>Sign in</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="row collapsed">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="row collapsed">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="row collapsed">
+  <% if devise_mapping.rememberable? -%>
+    <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+  <% end -%>
+  </div>
+
+  <div class="row collapsed"><%= f.submit "Sign in", class: 'button radius' %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>

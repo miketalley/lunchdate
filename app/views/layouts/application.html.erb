@@ -32,7 +32,7 @@
             <% if user_signed_in? %>
               <%= link_to "Logged in as #{current_user.username}.", edit_user_registration_path %>
             <% else %>
-              Menu
+              <a href='#'>Menu</a>
             <% end %>
             <ul class="dropdown">
               <% if user_signed_in? %>
