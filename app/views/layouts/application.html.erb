@@ -29,11 +29,19 @@
       <!-- Right Nav Section -->
         <ul class="right">
           <li class="has-dropdown">
-             <%= link_to "Logged in as #{current_user.username}.", edit_user_registration_path %>
+            <% if user_signed_in? %>
+              <%= link_to "Logged in as #{current_user.username}.", edit_user_registration_path %>
+            <% else %>
+              Menu
+            <% end %>
             <ul class="dropdown">
-              <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
-              <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-              <li class="divider"></li>
+              <% if user_signed_in? %>
+                <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+                <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+              <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path %></li>
+                <li><%= link_to "Login", new_user_session_path %></li>
+              <% end %>
               <li class='active'><%= link_to 'All Dates', lunch_dates_path, 'data-no-turbolink' => true %></li>
               <li class='active'><%= link_to 'Create Date', new_query_path %></li>
               <li class='active'><%= link_to 'View My Dates', my_dates_path %></li>
