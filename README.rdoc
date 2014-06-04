@@ -5,15 +5,15 @@ other users to be able to view the date location and time and choose if they
 would like to accept the date.
 
 To install the software you can clone the repository. Some notes are that this
-software uses <a href="https://github.com/apneadiving/Google-Maps-for-Rails">GMaps4Rails Gem</a>,
-and also the <a href="https://github.com/marceldegraaf/google_places">Google Places Gem</a>.
+software uses {GMaps4Rails Gem}[https://github.com/apneadiving/Google-Maps-for-Rails],
+and also the {Google Places Gem}[https://github.com/marceldegraaf/google_places].
 
 
 * Ruby version
   2.1.1
 
 * System dependencies
-  Requires <a href="http://underscorejs.org/">Underscore.js</a>
+  Requires {Underscore.js}[http://underscorejs.org/]
 
 * Database creation
   rake db:create
@@ -25,3 +25,4 @@ Thanks for checking out my repo. Please feel free to contact me with any questio
 or suggestions!
 
 -Mike
+michael.d.talley@gmail.com
