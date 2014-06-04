@@ -1,23 +1,13 @@
 class LunchDatesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
-  CURRENT_USER = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
+  GoogleClient = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
+  TwilioClient = Twilio::REST::Client.new ENV['account_sid'], ENV['auth_token']
 
 
   def index
-    @unconfirmed_other_users_lunch_dates = []
-    @lunch_dates = LunchDate.all.sort_by{ |date| date.date_time}
-    @lunch_dates.each do |ld|
-      if (
-        (ld.creator != current_user) &&
-        (!ld.matches.map{ |match| match.status }.include? 'Confirmed') &&
-        (!ld.expired)
-        )
-        @unconfirmed_other_users_lunch_dates << ld
-      end
-    end
-    @unconfirmed_other_users_lunch_dates.sort_by{ |date| date.date_time}
-    @hash = Gmaps4rails.build_markers(@unconfirmed_other_users_lunch_dates) do |lunch_date, marker|
+    @scrubbedDates = LunchDate.getScrubbedDates(current_user)
+    @hash = Gmaps4rails.build_markers(@scrubbedDates) do |lunch_date, marker|
       marker.lat lunch_date.latitude
       marker.lng lunch_date.longitude
       marker.infowindow "<span class='iwstyle'>" + "#{lunch_date.location_name}" + "<br />" + "#{lunch_date.date_time.strftime("%m/%d/%y - %I:%M%p")}" + "<br />" + "#{lunch_date.creator.username}" + "</span>"
@@ -77,7 +67,7 @@ class LunchDatesController < ApplicationController
 
   def query_result
     coordinates = []
-    client = CURRENT_USER
+    client = GoogleClient
     coordinates = Geocoder.coordinates(params[:query_term])
     if coordinates.nil?
       flash[:message] = 'No Results Found'
@@ -95,6 +85,8 @@ class LunchDatesController < ApplicationController
     @match.status = 'Pending Confirmation'
     # This should have Pony send a confirmation request to the creator
     # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
+    TwilioClient.account.messages.create( :from => '+16176069565', :to => current_user.phone, :body => 'Date Pending Confirmation', :media_url => 'http://www.clker.com/cliparts/5/X/a/g/I/6/confirm-button.svg', )
+
     if @match.save
       flash[:message] = "Email Sent to Creator\nLunch Date is Pending Confirmation"
       redirect_to lunch_date_path(lunch_date)

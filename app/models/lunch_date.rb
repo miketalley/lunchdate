@@ -13,4 +13,19 @@ class LunchDate < ActiveRecord::Base
     self.date_time < Date.today
   end
 
+  def self.getScrubbedDates(current_user)
+    scrubbedDates = []
+    alldates = LunchDate.all.sort_by{ |date| date.date_time}.reverse
+    alldates.each do |ld|
+      if (
+        (ld.creator != current_user) &&
+        (!ld.matches.map{ |match| match.status }.include? 'Confirmed') &&
+        (!ld.expired)
+        )
+        scrubbedDates << ld
+      end
+    end
+    return scrubbedDates
+  end
+
 end
