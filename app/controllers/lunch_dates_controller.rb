@@ -2,7 +2,8 @@ class LunchDatesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
   GoogleClient = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
-  TwilioClient = Twilio::REST::Client.new(ENV['account_sid'], ENV['auth_token'])
+  binding.pry
+  # TwilioClient = Twilio::REST::Client.new(ENV['account_sid'], ENV['auth_token'])
 
 
   def index
@@ -85,7 +86,7 @@ class LunchDatesController < ApplicationController
     @match.status = 'Pending Confirmation'
     # This should have Pony send a confirmation request to the creator
     # send_date_confirm_email(lunch_date.creator, current_user, lunch_date)
-    TwilioClient.account.messages.create( :from => '+16176069565', :to => current_user.phone, :body => 'Date Pending Confirmation', :media_url => 'http://www.clker.com/cliparts/5/X/a/g/I/6/confirm-button.svg', )
+    # TwilioClient.account.messages.create( :from => '+16176069565', :to => current_user.phone, :body => 'Date Pending Confirmation', :media_url => 'http://www.clker.com/cliparts/5/X/a/g/I/6/confirm-button.svg', )
 
     if @match.save
       flash[:message] = "Email Sent to Creator\nLunch Date is Pending Confirmation"
