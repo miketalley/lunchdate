@@ -2,7 +2,7 @@ class LunchDatesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_lunch_date, only: [:show, :edit, :update, :destroy]
   GoogleClient = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
-  TwilioClient = Twilio::REST::Client.new ENV['account_sid'], ENV['auth_token']
+  TwilioClient = Twilio::REST::Client.new(ENV['account_sid'], ENV['auth_token'])
 
 
   def index
