@@ -118,6 +118,7 @@ GEM
     minitest (5.3.4)
     multi_json (1.10.0)
     multi_xml (0.5.5)
+    newrelic_rpm (3.9.0.229)
     nio4r (1.0.0)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
@@ -251,6 +252,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  newrelic_rpm
   pg
   pony
   pry-nav
